@@ -57,9 +57,11 @@ class TemplateManager(object):
 
     def register(self, template):
         self.templates[template.name] = template
+        print("Add template : "+template.name)
         msg("Registered template : '%s'" % template.name)
 
     def get(self, name):
+        print(str(self.templates))
         return self.templates[name]
 
 class Variable(object):
