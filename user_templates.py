@@ -1,5 +1,5 @@
 class myTemplates(object):
-    name = "myTemplates"
+    name = "myTemplate"
     style = 'camelCase' # can also be snakeCase
     getter = """
     public function get%(normalizedName)s() {
