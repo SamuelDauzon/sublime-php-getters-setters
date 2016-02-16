@@ -57,11 +57,9 @@ class TemplateManager(object):
 
     def register(self, template):
         self.templates[template.name] = template
-        print("Add template : "+template.name)
         msg("Registered template : '%s'" % template.name)
 
     def get(self, name):
-        print(str(self.templates))
         return self.templates[name]
 
 class Variable(object):
@@ -613,6 +611,21 @@ class snakeCaseFluent(snakeCase):
     }
 """
 
+class myTemplate(object):
+    name = "myTemplate"
+    style = 'camelCase' # can also be snakeCase
+    getter = """
+    public function get%(normalizedName)s() {
+        return $this->%(name)s;
+    }
+"""
+
+    setter = """
+    public function set%(normalizedName)s(%(typeHint)s $%(name)s) {
+        $this->%(name)s = $%(name)s;
+    }
+"""
+
 Prefs = Prefs()
 
 TemplateManager = TemplateManager()
@@ -622,6 +635,7 @@ def plugin_loaded():
     TemplateManager.register(camelCaseFluent())
     TemplateManager.register(snakeCase())
     TemplateManager.register(snakeCaseFluent())
+    TemplateManager.register(myTemplate())
 
     for template in Prefs.get('registerTemplates'):
         TemplateManager.register(eval(template+'()'))
